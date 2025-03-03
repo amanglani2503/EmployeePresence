@@ -1,3 +1,5 @@
+const { calculateTotalWage } = require("./wageHelper");
+
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
@@ -18,8 +20,8 @@ function getWorkHours(empCheck) {
     }
 }
 
-// Function for storing daily wages and calculating total wages
-function calculateTotalWage() {
+// Function for calculating total wage and storing daily wages
+function generateEmployeeWages() {
     let totalEmpHours = 0;
     let totalWorkingDays = 0;
     let dailyWages = [];
@@ -29,14 +31,14 @@ function calculateTotalWage() {
         let empHours = getWorkHours(empCheck);
         let dailyWage = empHours * WAGE_PER_HOUR;
 
-        dailyWages.push(dailyWage); // Store daily wage
+        dailyWages.push({ day: totalWorkingDays + 1, wage: dailyWage, hours: empHours });
         totalEmpHours += empHours;
         totalWorkingDays++;
     }
 
-    return totalEmpHours * WAGE_PER_HOUR;
+    // Calling helper function to process wages
+    calculateTotalWage(dailyWages);
 }
 
-// calculating total wages
-let totalWage = calculateTotalWage();
-console.log(`Total Monthly Wage: $${totalWage}`);
+
+generateEmployeeWages();
