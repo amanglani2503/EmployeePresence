@@ -4,6 +4,7 @@ const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
 const FULL_TIME_HOURS = 8;
 const WAGE_PER_HOUR = 20;
+const WORKING_DAYS_PER_MONTH = 20;
 
 // Function to get work hours
 function getWorkHours(empCheck) {
@@ -17,9 +18,13 @@ function getWorkHours(empCheck) {
     }
 }
 
-// Generating work type :- Absent, Part-Time, Full-Time
-let empCheck = Math.floor(Math.random() * 3);
-let empHours = getWorkHours(empCheck);
-let dailyWage = empHours * WAGE_PER_HOUR;
+// Calculating total monthly wage
+let totalEmpHours = 0;
 
-console.log(`Employee worked ${empHours} hours, Daily Wage: $${dailyWage}`);
+for (let day = 0; day < WORKING_DAYS_PER_MONTH; day++) {
+    let empCheck = Math.floor(Math.random() * 3);
+    totalEmpHours += getWorkHours(empCheck);
+}
+
+let totalWage = totalEmpHours * WAGE_PER_HOUR;
+console.log(`Total Hours Worked: ${totalEmpHours}, Monthly Wage: $${totalWage}`);
