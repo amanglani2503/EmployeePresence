@@ -20,24 +20,33 @@ function getWorkHours(empCheck) {
     }
 }
 
-// Arrays and Maps to store daily data
-let dailyWages = [];
+// Array to store employee daily records
+let employeeDailyRecords = [];
+
+// Maps to store daily wage and hours
 let dailyWageMap = new Map();
 let dailyHourMap = new Map();
 
-// Calculating total hours and days
+// Variables to track total hours and days
 let totalEmpHours = 0;
 let totalWorkingDays = 0;
 
-
+// Simulate work for each day
 while (totalEmpHours < MAX_WORKING_HOURS && totalWorkingDays < MAX_WORKING_DAYS) {
     totalWorkingDays++;
     let empCheck = Math.floor(Math.random() * 3);
     let empHours = getWorkHours(empCheck);
     let dailyWage = empHours * WAGE_PER_HOUR;
 
-    // Storing data
-    dailyWages.push({ day: totalWorkingDays, wage: dailyWage });
+    // Storing data in a single object
+    let dailyRecord = {
+        day: totalWorkingDays,
+        hoursWorked: empHours,
+        wageEarned: dailyWage
+    };
+
+    // Store object in array and map
+    employeeDailyRecords.push(dailyRecord);
     dailyWageMap.set(totalWorkingDays, dailyWage);
     dailyHourMap.set(totalWorkingDays, empHours);
 
@@ -46,7 +55,7 @@ while (totalEmpHours < MAX_WORKING_HOURS && totalWorkingDays < MAX_WORKING_DAYS)
 
 // Calculating total wages
 console.log("\n\nWage Calculations Using Helper Functions");
-calculateTotalWage(dailyWages);
+calculateTotalWage(employeeDailyRecords);
 
 // Processing and displaying day-wise wages
 console.log("\n\nProcessing Day-wise Wage & Hours");
